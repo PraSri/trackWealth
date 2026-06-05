@@ -1,5 +1,7 @@
 # TrackWealth
 
+**Live Demo: [https://PraSri.github.io/trackWealth/](https://PraSri.github.io/trackWealth/)**
+
 TrackWealth is a beautiful, client-side single-page application (SPA) designed to help you track your personal wealth and financial instruments in one unified dashboard.
 
 ## Features
