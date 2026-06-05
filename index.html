@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Track your wealth — monitor all your financial instruments, allocation percentages, and daily changes in one beautiful dashboard." />
+  <title>TrackWealth — Your Personal Wealth Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Hero Section -->
+    <header class="hero" id="hero-section">
+      <div class="hero-bg">
+        <div class="hero-arch"></div>
+        <div class="hero-gradient-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="avatar" id="avatar">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="16" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <p class="hero-label">YOUR TOTAL WEALTH</p>
+        <h1 class="hero-amount" id="total-wealth">₹0</h1>
+        <div class="hero-change" id="total-change">
+          <span class="change-icon">↑</span>
+          <span class="change-value">₹0 (0.00%)</span>
+          <span class="change-period">1 DAY</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Insights Bar -->
+    <section class="insights-bar" id="insights-section">
+      <div class="insight-card" id="insight-instruments">
+        <span class="insight-value" id="total-instruments">0</span>
+        <span class="insight-label">Instruments</span>
+      </div>
+      <div class="insight-divider"></div>
+      <div class="insight-card" id="insight-top">
+        <span class="insight-value" id="top-allocation">—</span>
+        <span class="insight-label">Top Allocation</span>
+      </div>
+      <div class="insight-divider"></div>
+      <div class="insight-card" id="insight-avg">
+        <span class="insight-value" id="avg-investment">₹0</span>
+        <span class="insight-label">Avg / Instrument</span>
+      </div>
+    </section>
+
+    <!-- Instruments List -->
+    <section class="instruments-section">
+      <div class="section-header">
+        <h2>VIEW YOUR WEALTH</h2>
+        <button class="btn-add" id="btn-add-instrument" aria-label="Add new instrument">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <line x1="10" y1="4" x2="10" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add Instrument
+        </button>
+      </div>
+
+      <!-- Add Instrument Form (hidden by default) -->
+      <div class="add-form-wrapper" id="add-form-wrapper">
+        <form class="add-form" id="add-form" autocomplete="off">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="instrument-name">Instrument Name</label>
+              <input type="text" id="instrument-name" placeholder="e.g., Mutual Funds" required />
+            </div>
+            <div class="form-group">
+              <label for="instrument-category">Category</label>
+              <select id="instrument-category">
+                <option value="mutual-funds">Mutual Funds</option>
+                <option value="stocks">Stocks</option>
+                <option value="epf">EPF</option>
+                <option value="nps">NPS</option>
+                <option value="bank">Bank Accounts</option>
+                <option value="fd">Fixed Deposits</option>
+                <option value="gold">Gold</option>
+                <option value="crypto">Crypto</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="instrument-amount">Current Value (₹)</label>
+              <input type="number" id="instrument-amount" placeholder="e.g., 500000" min="0" step="1" required />
+            </div>
+            <div class="form-group">
+              <label for="instrument-change">Daily Change (%)</label>
+              <input type="number" id="instrument-change" placeholder="e.g., 0.12 or -0.24" step="0.01" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-save" id="btn-save">Add Instrument</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Instrument List -->
+      <div class="instrument-list" id="instrument-list">
+        <!-- Instruments rendered via JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="12" width="48" height="40" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+            <line x1="8" y1="24" x2="56" y2="24" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="18" r="2" fill="currentColor"/>
+            <circle cx="28" cy="18" r="2" fill="currentColor"/>
+            <circle cx="36" cy="18" r="2" fill="currentColor"/>
+            <line x1="20" y1="32" x2="44" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="38" x2="36" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="44" x2="40" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>No instruments added yet</h3>
+        <p>Start tracking your wealth by adding your first financial instrument.</p>
+        <button class="btn-add-empty" id="btn-add-empty">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <line x1="10" y1="4" x2="10" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add Your First Instrument
+        </button>
+      </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="chart-section" id="chart-section" style="display:none;">
+      <h2>ALLOCATION BREAKDOWN</h2>
+      <div class="chart-container">
+        <canvas id="allocation-chart" width="280" height="280"></canvas>
+        <div class="chart-center" id="chart-center">
+          <span class="chart-center-label">Total</span>
+          <span class="chart-center-value" id="chart-total">₹0</span>
+        </div>
+      </div>
+      <div class="chart-legend" id="chart-legend"></div>
+    </section>
+
+    <!-- Data Management -->
+    <section class="data-section" id="data-section">
+      <h2>MANAGE YOUR DATA</h2>
+      <div class="data-actions">
+        <button class="btn-data btn-export" id="btn-export" aria-label="Export data as JSON">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M10 3v10M10 13l-4-4M10 13l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 15v2a1 1 0 001 1h12a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Export as JSON
+        </button>
+        <button class="btn-data btn-import" id="btn-import" aria-label="Import data from JSON file">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M10 13V3M10 3l-4 4M10 3l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 15v2a1 1 0 001 1h12a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Import from JSON
+        </button>
+      </div>
+      <p class="data-hint">Export saves a <code>.json</code> file to your Downloads. Import loads it back — even on a different device.</p>
+      <input type="file" id="file-input" accept=".json,application/json" style="display:none;" />
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>TrackWealth &mdash; Built with ❤️</p>
+    </footer>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="edit-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Edit Instrument</h3>
+        <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="edit-form" autocomplete="off">
+        <input type="hidden" id="edit-id" />
+        <div class="form-group">
+          <label for="edit-name">Instrument Name</label>
+          <input type="text" id="edit-name" required />
+        </div>
+        <div class="form-group">
+          <label for="edit-category">Category</label>
+          <select id="edit-category">
+            <option value="mutual-funds">Mutual Funds</option>
+            <option value="stocks">Stocks</option>
+            <option value="epf">EPF</option>
+            <option value="nps">NPS</option>
+            <option value="bank">Bank Accounts</option>
+            <option value="fd">Fixed Deposits</option>
+            <option value="gold">Gold</option>
+            <option value="crypto">Crypto</option>
+            <option value="real-estate">Real Estate</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-amount">Current Value (₹)</label>
+          <input type="number" id="edit-amount" min="0" step="1" required />
+        </div>
+        <div class="form-group">
+          <label for="edit-change">Daily Change (%)</label>
+          <input type="number" id="edit-change" step="0.01" />
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-delete" id="btn-delete-instrument">Delete</button>
+          <button type="submit" class="btn-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

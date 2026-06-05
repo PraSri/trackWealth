@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "exportedAt": "2026-06-05T19:11:30.923Z",
+  "instruments": [
+    {
+      "id": "mq1aor0n2cqzp",
+      "name": "EPF",
+      "category": "epf",
+      "amount": 1938198,
+      "dailyChange": 0,
+      "createdAt": 1780686367943
+    },
+    {
+      "id": "mq1aq4c2upc3y",
+      "name": "SBI",
+      "category": "bank",
+      "amount": 602485,
+      "dailyChange": 0,
+      "createdAt": 1780686431858
+    },
+    {
+      "id": "mq1aqwrfjn8k5",
+      "name": "PNB",
+      "category": "bank",
+      "amount": 5628,
+      "dailyChange": 0,
+      "createdAt": 1780686468699
+    }
+  ]
+}
